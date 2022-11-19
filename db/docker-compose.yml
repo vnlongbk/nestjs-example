@@ -1,16 +1,33 @@
 version: '3.8'
 services:
-  db:
-    image: postgres:14.1-alpine
+  postgres:
+    container_name: postgres_microservices_auth
+    image: postgres
     restart: always
     environment:
-      - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=123456
-      - POSTGRES_DB=development_postgres
+      - POSTGRES_DB=postgres_microservices_auth
     ports:
       - '5432:5432'
-    volumes: 
-      - db:/var/lib/postgresql/data
-volumes:
-  db:
-    driver: local
+    volumes:
+      - ./data:/var/lib/postgresql/data
+
+networks:
+  postgres:
+    driver: bridge
+# services:
+#   postgres:
+#     container_name: postgres_banhkemduyen
+#     image: postgres
+#     restart: always
+#     environment:
+#       POSTGRES_PASSWORD: 123456
+#       POSTGRES_DB: banhkemduyen
+#     ports:
+#       - 5432:5432
+#     volumes:
+#       - ./data:/var/lib/postgresql/data
+
+# networks:
+#   postgres:
+#     driver: bridge
